@@ -8,7 +8,7 @@ import java.lang.*;
 /*
 x*x+2*3+5*y+2
 ! simplify y=3
-!d/d x
+!d/d z
  */
 
 
@@ -20,7 +20,6 @@ class data {
 	public int n;
 	public char v; 
 	public int type;
-	//public int length;
 	public void SetValue(char ope, char va, int numb, int typ) {
 		o = ope;
 		n = numb;
@@ -258,8 +257,9 @@ public class management {
 		for (int i = 0; i < tobeded.length(); i++) {
 //			System.out.println(tobeded.charAt(i));
 			if (isvar(tobeded.charAt(i)) && (expression.indexOf(tobeded.charAt(i)) == -1)) {
-				System.out.println("NO SUCH VARIABLE, ARE U KIDDING ME????????");
+				System.out.println("Not Found!!!!");
 //				devar = 'x';
+				return null;
 			} 
 			else if(isvar(tobeded.charAt(i))) {
 //				System.out.println(tobeded.charAt(i));
@@ -306,40 +306,54 @@ public class management {
 	}
 	 
 	public static void main(String[] args) throws IOException {
-		data[] newexpression = new data[30];
-		for(int i = 0; i < 30; i++) {
-			newexpression[i] = new data();
-		}		
-		String expressionstore = new String();
-		while (true) {
+		try {
+			data[] newexpression = new data[30];
+			for(int i = 0; i < 30; i++) {
+				newexpression[i] = new data();
+			}		
+			String expressionstore = new String();
+			while (true) {
 			String sentencein;
 			BufferedReader buf;
 			buf=new BufferedReader(new InputStreamReader(System.in));
-			sentencein = buf.readLine();
-			if(sentencein.charAt(0) != '!') {
-				//expression
-				System.out.println();
-				newexpression = expression(sentencein);
-				expressionstore = sentencein;
-//				for (int i = 0; i < sentencein.length(); i++)
-//					System.out.println("datatype:" + newexpression[i].type + "operation:" + newexpression[i].o + "variable:" + newexpression[i].v +"number:" + newexpression[i].n);
-			}
-			else {
-				//commands
-				if(sentencein.length() >= 11 && !(sentencein.substring(0, 10).equalsIgnoreCase( "! simplify "))) {
-					//simplify
-					System.out.println("Doing the simplify work...");
-					simplify(sentencein.substring(10), newexpression, expressionstore);
+			
+				sentencein = buf.readLine();
+//				System.out.println(sentencein);
+			
+				if(isnumber(sentencein.charAt(0)) || isvar(sentencein.charAt(0))) {
+					//expression
+					System.out.println();
+					newexpression = expression(sentencein);
+					expressionstore = sentencein;
+	//				for (int i = 0; i < sentencein.length(); i++)
+	//					System.out.println("datatype:" + newexpression[i].type + "operation:" + newexpression[i].o + "variable:" + newexpression[i].v +"number:" + newexpression[i].n);
 				}
-				else if(sentencein.length() >= 5 && !(sentencein.substring(0, 4).equalsIgnoreCase( "!d/d "))) {
-					//derivative
-					System.out.println("Doing the derivation work...");
-					derivative(sentencein.substring(4), newexpression, expressionstore);
+				else if(sentencein.charAt(0) == '!'){
+					//commands
+					if(sentencein.length() >= 11 && !(sentencein.substring(0, 10).equalsIgnoreCase( "! simplify "))) {
+						//simplify
+						System.out.println("Doing the simplify work...");
+						simplify(sentencein.substring(10), newexpression, expressionstore);
+					}
+					else if(sentencein.length() >= 5 && !(sentencein.substring(0, 4).equalsIgnoreCase( "!d/d "))) {
+						//derivative
+						System.out.println("Doing the derivation work...");
+						derivative(sentencein.substring(4), newexpression, expressionstore);
+					}
+					else {
+						System.out.println("Wrong Command!");
+					}
 				}
 				else {
-					System.out.println("Wrong Input!");
+					System.out.println("Wrong Command!");
+					break;
 				}
 			}
 		}
+		catch(Exception e) {
+			System.out.println("Nothing Inputed, exiting...");
+			return;
+		}
 	}
+	
 }

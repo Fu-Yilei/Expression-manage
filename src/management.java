@@ -318,7 +318,8 @@ public class management {
 			buf=new BufferedReader(new InputStreamReader(System.in));
 			
 				sentencein = buf.readLine();
-//				System.out.println(sentencein);
+				sentencein = sentencein.replace(" ","");
+				System.out.println(sentencein);
 			
 				if(isnumber(sentencein.charAt(0)) || isvar(sentencein.charAt(0))) {
 					//expression

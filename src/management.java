@@ -216,6 +216,7 @@ public class management {
 //			System.out.println("datatype:" + simple[i].type + "operation:" + simple[i].o + "variable:" + simple[i].v +"number:" + simple[i].n);
 		
 		StringBuffer vart = new StringBuffer("");
+//		System.out.println(tobesimpled);
 		tobesimpled = tobesimpled.replace(" ","");
 		tobesimpled = tobesimpled.replace("=", "");
 //		System.out.println(tobesimpled);
@@ -228,7 +229,7 @@ public class management {
 //		System.out.println(varts);
 		for(int i = 0; i < tobesimpled.length(); i++) {
 			if(isvar(tobesimpled.charAt(i))) {
-//				System.out.println(tobesimpled.charAt(i));
+				System.out.println(tobesimpled.charAt(i));
 				if(varts.indexOf(tobesimpled.charAt(i)) == -1) {
 					System.out.println("Not found!!!!!");
 //					printerror();
@@ -238,7 +239,6 @@ public class management {
 //				System.out.println(express);
 				simple = expression(express);
 			}
-			//System.out.println(Splited[i]);
 		}
 		
 //		for (int i = 0; i < express.length(); i++)
@@ -264,6 +264,7 @@ public class management {
 			else if(isvar(tobeded.charAt(i))) {
 //				System.out.println(tobeded.charAt(i));
 				devar = tobeded.charAt(i);
+				break;
 			}
 		}
 		String[] Splited = expression.split("\\+");
@@ -319,7 +320,7 @@ public class management {
 			
 				sentencein = buf.readLine();
 				sentencein = sentencein.replace(" ","");
-				System.out.println(sentencein);
+//				System.out.println(sentencein);
 			
 				if(isnumber(sentencein.charAt(0)) || isvar(sentencein.charAt(0))) {
 					//expression
@@ -334,7 +335,8 @@ public class management {
 					if(sentencein.length() >= 11 && !(sentencein.substring(0, 10).equalsIgnoreCase( "! simplify "))) {
 						//simplify
 						System.out.println("Doing the simplify work...");
-						simplify(sentencein.substring(10), newexpression, expressionstore);
+						System.out.println(sentencein.substring(9));
+						simplify(sentencein.substring(9), newexpression, expressionstore);
 					}
 					else if(sentencein.length() >= 5 && !(sentencein.substring(0, 4).equalsIgnoreCase( "!d/d "))) {
 						//derivative
